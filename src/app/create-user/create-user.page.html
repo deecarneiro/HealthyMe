@@ -1,0 +1,62 @@
+<ion-content>
+  <form >
+    <!-- I, as Willarts, want my professional user has name,
+    email, code, birthdate, profile Image, zipcode, address and the professional type. 
+    And a list of clients -->
+    <ion-avatar>
+     <ion-icon name="camera">
+     </ion-icon>
+     <ion-input id="profile-file" type="file"></ion-input>
+    </ion-avatar>
+    <ion-item>
+      <ion-input type="text" name="name" placeholder="Nome Completo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" name="email" placeholder="E-mail"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" name="code" placeholder="CPF"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="date" name="name" placeholder="Data de Nascimento"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" name="zipcode" placeholder="CEP"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" name="address" placeholder="Endereço"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" name="city" placeholder="Cidade"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" name="district" placeholder="Bairro"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" name="complement" placeholder="Complemento"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" name="address-number" placeholder="Número"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Profissional da Saúde</ion-label>
+          <ion-select interface="action-sheet" cancel-text="Cancelar">
+            <ion-select-option value="1">Sim</ion-select-option>
+            <ion-select-option value="0">Não</ion-select-option>
+          </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Qual tipo?</ion-label>
+          <ion-select interface="popover" cancel-text="Cancelar">
+            <ion-select-option value="yes">Sim</ion-select-option>
+            <ion-select-option value="no">Não</ion-select-option>
+          </ion-select>
+    </ion-item>
+    <ion-button color="danger">Cadastrar</ion-button>
+    <p>
+      <a [routerLink]="['/login']">
+        << Voltar </a>
+          <br />
+    </p>
+  </form>
+</ion-content>

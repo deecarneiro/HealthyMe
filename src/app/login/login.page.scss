@@ -1,0 +1,35 @@
+ion-content{
+    --background: url(../../../src/assets/img/login.png) 0 0/100% 100% no-repeat;
+    display: flex;
+    --flex-direction: row;
+    >div.logo{
+        flex: 2;
+        margin: 20% 20% 0%;
+        background: url(../../../src/assets/img/logo.png)   0 0/100% 100% no-repeat;
+        width: 220px;
+        height: 150px;
+        align-self: center;
+        align-content: center;
+    }
+    >form{
+        padding: 10% 10%;
+        >ion-item{
+            padding-bottom: 25px;
+            --border-radius: 5px;
+        }
+        >ion-button{
+            width: 100%;
+        }
+        >p{
+          padding: 0 10% 0 10%;  
+          text-align: center;
+          font-size: 18px;
+          font-weight: bold;
+          >a:link{
+              text-decoration: none;
+              color: white;
+            }
+        }
+
+    }
+}
