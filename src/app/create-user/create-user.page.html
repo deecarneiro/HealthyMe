@@ -3,7 +3,7 @@
     <!-- I, as Willarts, want my professional user has name,
     email, code, birthday, profile Image, zipcode, address and the professional type. 
     And a list of clients -->
-    <ion-avatar >
+    <ion-avatar id="avatar" >
       <ion-icon (click)="selectedPhoto()" name="camera">
       </ion-icon>
       <!-- <ion-input id="profile-file"  type="file" formControlName="profileImage"></ion-input> -->
@@ -23,6 +23,15 @@
     </ion-item>
     <div *ngFor="let error of errorMessages.email">
       <ng-container *ngIf="emailCtrl.hasError(error.type) && (emailCtrl.dirty || emailCtrl.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-input formControlName="password" inputmode="password" type="password" placeholder="Senha"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.password">
+      <ng-container *ngIf="passwordCtrl.hasError(error.type) && (passwordCtrl.dirty || passwordCtrl.touched)">
         <small class="error-message">{{error.message}}</small>
       </ng-container>
     </div>

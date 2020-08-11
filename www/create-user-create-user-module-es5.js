@@ -21,7 +21,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ion-content>\n  <form [formGroup]=\"registrationForm\" (ngSubmit)=\"submit()\">\n    <!-- I, as Willarts, want my professional user has name,\n    email, code, birthday, profile Image, zipcode, address and the professional type. \n    And a list of clients -->\n    <ion-avatar ngClick=\"selectedPhoto()\">\n      <ion-icon name=\"camera\">\n      </ion-icon>\n      <!-- <ion-input id=\"profile-file\"  type=\"file\" formControlName=\"profileImage\"></ion-input> -->\n    </ion-avatar>\n\n    <ion-item>\n      <ion-input formControlName=\"name\" inputmode=\"text\" type=\"text\" placeholder=\"Nome Completo\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.name\">\n      <ng-container *ngIf=\"nameCtrl.hasError(error.type) && (nameCtrl.dirty || nameCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item>\n      <ion-input formControlName=\"email\" inputmode=\"email\" type=\"email\" placeholder=\"E-mail\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.email\">\n      <ng-container *ngIf=\"emailCtrl.hasError(error.type) && (emailCtrl.dirty || emailCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n\n    <ion-item>\n      <ion-input formControlName=\"code\" inputmode=\"text\" type=\"text\" placeholder=\"CPF\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.code\">\n      <ng-container *ngIf=\"codeCtrl.hasError(error.type) && (codeCtrl.dirty || codeCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item>\n      <ion-label>Data de Nascimento</ion-label>\n      <ion-input formControlName=\"birthday\" inputmode=\"date\" type=\"date\" placeholder=\"Data de Nascimento\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.birthday\">\n      <ng-container *ngIf=\"birthdayCtrl.hasError(error.type) && (birthdayCtrl.dirty || birthdayCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item>\n      <ion-input formControlName=\"zipcode\" inputmode=\"text\" type=\"text\" placeholder=\"CEP\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.zipcode\">\n      <ng-container *ngIf=\"zipcodeCtrl.hasError(error.type) && (zipcodeCtrl.dirty || zipcodeCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item>\n      <ion-input formControlName=\"address\" inputmode=\"text\" type=\"text\" placeholder=\"Endereço\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.address\">\n      <ng-container *ngIf=\"addressCtrl.hasError(error.type) && (addressCtrl.dirty || addressCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item>\n      <ion-label>Profissional da Saúde</ion-label>\n      <ion-select formControlName=\"professional\" interface=\"action-sheet\" cancel-text=\"Cancelar\">\n        <ion-select-option value=\"1\">Sim</ion-select-option>\n        <ion-select-option value=\"0\">Não</ion-select-option>\n      </ion-select>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.professional\">\n      <ng-container\n        *ngIf=\"professionalCtrl.hasError(error.type) && (professionalCtrl.dirty || professionalCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item *ngIf=\"professionalCtrl.value == 1\">\n      <ion-label>Qual sua especialidade?</ion-label>\n      <ion-select formControlName=\"type\" interface=\"action-sheet\" cancel-text=\"Cancelar\">\n        <ion-select-option *ngFor=\"let speciality of professionalSpeciality\" value=\"{{speciality.value}}\">\n          {{speciality.name}}</ion-select-option>\n      </ion-select>\n    </ion-item>\n\n    <ion-button type=\"submit\" [disabled]=\"!this.registrationForm.valid\" color=\"danger\">Cadastrar</ion-button>\n    <p>\n      <a [routerLink]=\"['/login']\">\n        << Voltar </a>\n          <br />\n    </p>\n  </form>\n</ion-content>";
+    __webpack_exports__["default"] = "<ion-content>\n  <form [formGroup]=\"registrationForm\" (ngSubmit)=\"submit()\">\n    <!-- I, as Willarts, want my professional user has name,\n    email, code, birthday, profile Image, zipcode, address and the professional type. \n    And a list of clients -->\n    <ion-avatar id=\"avatar\" >\n      <ion-icon (click)=\"selectedPhoto()\" name=\"camera\">\n      </ion-icon>\n      <!-- <ion-input id=\"profile-file\"  type=\"file\" formControlName=\"profileImage\"></ion-input> -->\n    </ion-avatar>\n\n    <ion-item>\n      <ion-input formControlName=\"name\" inputmode=\"text\" type=\"text\" placeholder=\"Nome Completo\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.name\">\n      <ng-container *ngIf=\"nameCtrl.hasError(error.type) && (nameCtrl.dirty || nameCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item>\n      <ion-input formControlName=\"email\" inputmode=\"email\" type=\"email\" placeholder=\"E-mail\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.email\">\n      <ng-container *ngIf=\"emailCtrl.hasError(error.type) && (emailCtrl.dirty || emailCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item>\n      <ion-input formControlName=\"password\" inputmode=\"password\" type=\"password\" placeholder=\"Senha\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.password\">\n      <ng-container *ngIf=\"passwordCtrl.hasError(error.type) && (passwordCtrl.dirty || passwordCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n\n    <ion-item>\n      <ion-input formControlName=\"code\" inputmode=\"text\" type=\"text\" placeholder=\"CPF\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.code\">\n      <ng-container *ngIf=\"codeCtrl.hasError(error.type) && (codeCtrl.dirty || codeCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item>\n      <ion-label>Data de Nascimento</ion-label>\n      <ion-input formControlName=\"birthday\" inputmode=\"date\" type=\"date\" placeholder=\"Data de Nascimento\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.birthday\">\n      <ng-container *ngIf=\"birthdayCtrl.hasError(error.type) && (birthdayCtrl.dirty || birthdayCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item>\n      <ion-input formControlName=\"zipcode\" inputmode=\"text\" type=\"text\" placeholder=\"CEP\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.zipcode\">\n      <ng-container *ngIf=\"zipcodeCtrl.hasError(error.type) && (zipcodeCtrl.dirty || zipcodeCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item>\n      <ion-input formControlName=\"address\" inputmode=\"text\" type=\"text\" placeholder=\"Endereço\"></ion-input>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.address\">\n      <ng-container *ngIf=\"addressCtrl.hasError(error.type) && (addressCtrl.dirty || addressCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item>\n      <ion-label>Profissional da Saúde</ion-label>\n      <ion-select formControlName=\"professional\" interface=\"action-sheet\" cancel-text=\"Cancelar\">\n        <ion-select-option value=\"1\">Sim</ion-select-option>\n        <ion-select-option value=\"0\">Não</ion-select-option>\n      </ion-select>\n    </ion-item>\n    <div *ngFor=\"let error of errorMessages.professional\">\n      <ng-container\n        *ngIf=\"professionalCtrl.hasError(error.type) && (professionalCtrl.dirty || professionalCtrl.touched)\">\n        <small class=\"error-message\">{{error.message}}</small>\n      </ng-container>\n    </div>\n\n    <ion-item *ngIf=\"professionalCtrl.value == 1\">\n      <ion-label>Qual sua especialidade?</ion-label>\n      <ion-select formControlName=\"type\" interface=\"action-sheet\" cancel-text=\"Cancelar\">\n        <ion-select-option *ngFor=\"let speciality of professionalSpeciality\" value=\"{{speciality.value}}\">\n          {{speciality.name}}</ion-select-option>\n      </ion-select>\n    </ion-item>\n\n    <ion-button type=\"submit\" [disabled]=\"!this.registrationForm.valid\" color=\"danger\">Cadastrar</ion-button>\n    <p>\n      <a [routerLink]=\"['/login']\">\n        << Voltar </a>\n          <br />\n    </p>\n  </form>\n</ion-content>";
     /***/
   },
 
@@ -275,6 +275,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.registrationForm = this.formBuilder.group({
           name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
           email: [' ', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9]+.[a-zA-Z]{2,4}$')]],
+          password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
           code: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('^[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}$')]],
           birthday: [new Date(), [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
           profileImage: [new FileReader(), [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
@@ -294,6 +295,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }, {
             type: 'pattern',
             message: 'Email Inválido. Preencha com um Email Válido'
+          }],
+          password: [{
+            type: 'required',
+            message: 'Coloque uma Senha'
+          }, {
+            type: 'pattern',
+            message: 'A senha precisa ter no minimo 8 caracteres e pelo menos uma letra maiúscula e um número.'
           }],
           code: [{
             type: 'required',
@@ -354,7 +362,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
-                    actionSheet = this.actionSheetCtrl.create({
+                    _context.next = 2;
+                    return this.actionSheetCtrl.create({
                       header: 'Selecione sua foto',
                       buttons: [{
                         text: 'Carregar da Galeria',
@@ -371,14 +380,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         role: 'cancel'
                       }]
                     });
-                    _context.next = 3;
-                    return actionSheet;
 
-                  case 3:
-                    _context.next = 5;
-                    return _context.sent.present();
+                  case 2:
+                    actionSheet = _context.sent;
+                    actionSheet.present();
 
-                  case 5:
+                  case 4:
                   case "end":
                     return _context.stop();
                 }
@@ -389,6 +396,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "takePhoto",
         value: function takePhoto(sourceType) {
+          var _this2 = this;
+
+          var avatarElement = document.getElementById('avatar');
           var options = {
             quality: 100,
             sourceType: sourceType,
@@ -397,6 +407,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           };
           this.camera.getPicture(options).then(function (photoPath) {
             console.log(photoPath);
+            _this2.imagePath = photoPath;
+            avatarElement.style.backgroundImage = 'url(' + _this2.pathForImage(_this2.imagePath) + ')';
+            avatarElement.style.backgroundPosition = '0 0/100% 100% no-repeat;';
+            avatarElement.style.backgroundSize = '100%';
           });
         }
       }, {
@@ -448,6 +462,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "addressCtrl",
         get: function get() {
           return this.registrationForm.get('address');
+        }
+      }, {
+        key: "passwordCtrl",
+        get: function get() {
+          return this.registrationForm.get('password');
         }
       }]);
 

@@ -2,7 +2,7 @@
   <div class="logo">
 
   </div>
-  <form>
+  <form  [formGroup]="loginForm" (ngSubmit)="submit()">
     <ion-item>
       <ion-input type="text" name="email" placeholder="Email"></ion-input>
     </ion-item>
