@@ -3,10 +3,10 @@
     <!-- I, as Willarts, want my professional user has name,
     email, code, birthday, profile Image, zipcode, address and the professional type. 
     And a list of clients -->
-    <ion-avatar>
-      <ion-icon name="camera">
+    <ion-avatar >
+      <ion-icon (click)="selectedPhoto()" name="camera">
       </ion-icon>
-      <ion-input id="profile-file" type="file"></ion-input>
+      <!-- <ion-input id="profile-file"  type="file" formControlName="profileImage"></ion-input> -->
     </ion-avatar>
 
     <ion-item>
