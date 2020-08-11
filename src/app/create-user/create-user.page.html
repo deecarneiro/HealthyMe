@@ -1,58 +1,93 @@
 <ion-content>
-  <form >
+  <form [formGroup]="registrationForm" (ngSubmit)="submit()">
     <!-- I, as Willarts, want my professional user has name,
-    email, code, birthdate, profile Image, zipcode, address and the professional type. 
+    email, code, birthday, profile Image, zipcode, address and the professional type. 
     And a list of clients -->
     <ion-avatar>
-     <ion-icon name="camera">
-     </ion-icon>
-     <ion-input id="profile-file" type="file"></ion-input>
+      <ion-icon name="camera">
+      </ion-icon>
+      <ion-input id="profile-file" type="file"></ion-input>
     </ion-avatar>
+
     <ion-item>
-      <ion-input type="text" name="name" placeholder="Nome Completo"></ion-input>
+      <ion-input formControlName="name" inputmode="text" type="text" placeholder="Nome Completo"></ion-input>
     </ion-item>
+    <div *ngFor="let error of errorMessages.name">
+      <ng-container *ngIf="nameCtrl.hasError(error.type) && (nameCtrl.dirty || nameCtrl.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
     <ion-item>
-      <ion-input type="text" name="email" placeholder="E-mail"></ion-input>
+      <ion-input formControlName="email" inputmode="email" type="email" placeholder="E-mail"></ion-input>
     </ion-item>
+    <div *ngFor="let error of errorMessages.email">
+      <ng-container *ngIf="emailCtrl.hasError(error.type) && (emailCtrl.dirty || emailCtrl.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+
     <ion-item>
-      <ion-input type="text" name="code" placeholder="CPF"></ion-input>
+      <ion-input formControlName="code" inputmode="text" type="text" placeholder="CPF"></ion-input>
     </ion-item>
+    <div *ngFor="let error of errorMessages.code">
+      <ng-container *ngIf="codeCtrl.hasError(error.type) && (codeCtrl.dirty || codeCtrl.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
     <ion-item>
-      <ion-input type="date" name="name" placeholder="Data de Nascimento"></ion-input>
+      <ion-label>Data de Nascimento</ion-label>
+      <ion-input formControlName="birthday" inputmode="date" type="date" placeholder="Data de Nascimento"></ion-input>
     </ion-item>
+    <div *ngFor="let error of errorMessages.birthday">
+      <ng-container *ngIf="birthdayCtrl.hasError(error.type) && (birthdayCtrl.dirty || birthdayCtrl.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
     <ion-item>
-      <ion-input type="text" name="zipcode" placeholder="CEP"></ion-input>
+      <ion-input formControlName="zipcode" inputmode="text" type="text" placeholder="CEP"></ion-input>
     </ion-item>
+    <div *ngFor="let error of errorMessages.zipcode">
+      <ng-container *ngIf="zipcodeCtrl.hasError(error.type) && (zipcodeCtrl.dirty || zipcodeCtrl.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
     <ion-item>
-      <ion-input type="text" name="address" placeholder="Endereço"></ion-input>
+      <ion-input formControlName="address" inputmode="text" type="text" placeholder="Endereço"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-input type="text" name="city" placeholder="Cidade"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" name="district" placeholder="Bairro"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" name="complement" placeholder="Complemento"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" name="address-number" placeholder="Número"></ion-input>
-    </ion-item>
+    <div *ngFor="let error of errorMessages.address">
+      <ng-container *ngIf="addressCtrl.hasError(error.type) && (addressCtrl.dirty || addressCtrl.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
     <ion-item>
       <ion-label>Profissional da Saúde</ion-label>
-          <ion-select interface="action-sheet" cancel-text="Cancelar">
-            <ion-select-option value="1">Sim</ion-select-option>
-            <ion-select-option value="0">Não</ion-select-option>
-          </ion-select>
+      <ion-select formControlName="professional" interface="action-sheet" cancel-text="Cancelar">
+        <ion-select-option value="1">Sim</ion-select-option>
+        <ion-select-option value="0">Não</ion-select-option>
+      </ion-select>
     </ion-item>
-    <ion-item>
-      <ion-label>Qual tipo?</ion-label>
-          <ion-select interface="popover" cancel-text="Cancelar">
-            <ion-select-option value="yes">Sim</ion-select-option>
-            <ion-select-option value="no">Não</ion-select-option>
-          </ion-select>
+    <div *ngFor="let error of errorMessages.professional">
+      <ng-container
+        *ngIf="professionalCtrl.hasError(error.type) && (professionalCtrl.dirty || professionalCtrl.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item *ngIf="professionalCtrl.value == 1">
+      <ion-label>Qual sua especialidade?</ion-label>
+      <ion-select formControlName="type" interface="action-sheet" cancel-text="Cancelar">
+        <ion-select-option *ngFor="let speciality of professionalSpeciality" value="{{speciality.value}}">
+          {{speciality.name}}</ion-select-option>
+      </ion-select>
     </ion-item>
-    <ion-button color="danger">Cadastrar</ion-button>
+
+    <ion-button type="submit" [disabled]="!this.registrationForm.valid" color="danger">Cadastrar</ion-button>
     <p>
       <a [routerLink]="['/login']">
         << Voltar </a>

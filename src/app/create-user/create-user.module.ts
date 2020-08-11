@@ -1,32 +1,23 @@
-import { NgModule, OnInit } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { CreateUserPageRoutingModule } from './create-user-routing.module';
 
 import { CreateUserPage } from './create-user.page';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     IonicModule,
-    CreateUserPageRoutingModule
+    CreateUserPageRoutingModule,
   ],
   declarations: [CreateUserPage]
 })
-export class CreateUserPageModule implements OnInit  {
-  name : any;
+export class CreateUserPageModule {
 
-  constructor() { 
-
-  }
-
-  ngOnInit() { 
-    this.name = new FormControl('Dayana')
-
-  }
 
 }
