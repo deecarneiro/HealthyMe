@@ -14,6 +14,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
+
+import { environment } from '../environments/environment';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -25,13 +30,19 @@ import { HttpClientModule } from '@angular/common/http';
 		ReactiveFormsModule,
 		IonicModule.forRoot(),
 		AppRoutingModule,
-    IonicStorageModule.forRoot(),
-    HttpClientModule
+		IonicStorageModule.forRoot(),
+		HttpClientModule,
+		AngularFireModule.initializeApp(environment.firebaseConfig),
+		AngularFireAuth,
+		AngularFireAuthModule,
+		AngularFirestoreModule,
+		
 	],
 	providers: [
 		StatusBar,
 		SplashScreen,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+		{ provide: SETTINGS, useValue: {} },
 		Camera,
 		File,
 		WebView,

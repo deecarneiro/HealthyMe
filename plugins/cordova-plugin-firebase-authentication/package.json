@@ -1,0 +1,65 @@
+{
+  "_from": "cordova-plugin-firebase-authentication",
+  "_id": "cordova-plugin-firebase-authentication@3.3.1",
+  "_inBundle": false,
+  "_integrity": "sha512-e5O/MLhofda7N3+Skbd+4xWW2ZoIOA/2M47L/JxBPuDJ8X+26Xsl23N466s0CnoOs8y1DoS4uruhjYlKu7Qmiw==",
+  "_location": "/cordova-plugin-firebase-authentication",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-firebase-authentication",
+    "name": "cordova-plugin-firebase-authentication",
+    "escapedName": "cordova-plugin-firebase-authentication",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-firebase-authentication/-/cordova-plugin-firebase-authentication-3.3.1.tgz",
+  "_shasum": "08448a0b614ccb16f4d39e3fad11ce034a6dde1f",
+  "_spec": "cordova-plugin-firebase-authentication",
+  "_where": "/home/deecarneiro/Área de Trabalho/Environment Ionic 5/williarts/HealthyMe",
+  "author": {
+    "name": "Maksim Chemerisuk",
+    "email": "chemerisuk@gmail.com",
+    "url": "https://github.com/chemerisuk"
+  },
+  "bugs": {
+    "url": "https://github.com/chemerisuk/cordova-plugin-firebase-authentication/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-firebase-authentication",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova plugin for Firebase Authentication",
+  "homepage": "https://github.com/chemerisuk/cordova-plugin-firebase-authentication#readme",
+  "keywords": [
+    "cordova",
+    "firebase",
+    "authentication",
+    "analytics",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-firebase-authentication",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chemerisuk/cordova-plugin-firebase-authentication.git"
+  },
+  "scripts": {
+    "postversion": "git push && git push --tags",
+    "version": "replace -s 'version=\"(.+)(?=\">)' 'version=\"'$npm_package_version plugin.xml && git add plugin.xml"
+  },
+  "version": "3.3.1"
+}

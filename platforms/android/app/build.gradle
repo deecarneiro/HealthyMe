@@ -98,6 +98,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "../cordova-support-google-services/app-build.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -295,6 +296,7 @@ dependencies {
     implementation(project(path: ":CordovaLib"))
     implementation "com.android.support:support-annotations:27.+"
     implementation "com.android.support:support-v4:27.+"
+    implementation "com.google.firebase:firebase-auth:19.3.+"
     // SUB-PROJECT DEPENDENCIES END
 }
 
