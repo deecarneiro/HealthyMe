@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
-import { User } from './models/User';
+import { User } from '../models/User';
 import { map, take } from 'rxjs/operators';
-import { NavController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Visitation } from './models/Visitation';
+import { Visitation } from '../models/Visitation';
 
 @Injectable({
 	providedIn: 'root',
