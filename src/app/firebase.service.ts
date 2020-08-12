@@ -5,18 +5,31 @@ import { User } from './models/User';
 import { map, take } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Visitation } from './models/Visitation';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class FirebaseService {
-  private users: Observable<User[]>;
+	private users: Observable<User[]>;
+	private visitations: Observable<Visitation[]>;
 
 	private usersCollection: AngularFirestoreCollection<User>;
+	private visitationsCollection: AngularFirestoreCollection<Visitation>;
 
-	constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth, private navCtrl: NavController) {
+	constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth) {
 		this.usersCollection = this.afs.collection<User>('users');
+		this.visitationsCollection = this.afs.collection<Visitation>('visitations');
 		this.users = this.usersCollection.snapshotChanges().pipe(
+			map((actions) => {
+				return actions.map((a) => {
+					const data = a.payload.doc.data();
+					const id = a.payload.doc.data().id;
+					return { id, ...data };
+				});
+			})
+		);
+		this.visitations = this.visitationsCollection.snapshotChanges().pipe(
 			map((actions) => {
 				return actions.map((a) => {
 					const data = a.payload.doc.data();
@@ -27,15 +40,32 @@ export class FirebaseService {
 		);
 	}
 
-	//auth
-	async loginUser(email: string, password: string): Promise<any> {
-		let user: Observable<User>;
-		this.afAuth.signInWithEmailAndPassword(email, password).then((res: any) => {
+	//Authentication
+
+	//login
+	async login(email: string, password: string): Promise<any> {
+		let user = null;
+		return await this.afAuth.signInWithEmailAndPassword(email, password).then((res: any) => {
 			user = this.getUserByPasswordAndPassword(email, password);
+			return user;
 		});
-		return user;
 	}
 
+	//logout
+	async logout(): Promise<any> {
+		return await this.afAuth.signOut();
+	}
+	//update Password
+	async updatePassword(password : any, user : User): Promise<any> {
+		return await ((await this.afAuth.currentUser).updatePassword(password),this.updateUser(user) );
+	}
+	//update Email
+	async updateEmail(email : any, user : User): Promise<any> {
+		return await ((await this.afAuth.currentUser).updateEmail(email),this.updateUser(user) );
+	}
+
+	
+	//Users Collection CRUD
 	//create
 	createUser(user: User): Promise<DocumentReference> {
 		this.afAuth
@@ -98,41 +128,50 @@ export class FirebaseService {
 	}
 
 	//delete
-	deleteUser(id: any): Promise<void> {
-		return this.usersCollection.doc(id).delete();
+	async deleteUser(id: any): Promise<void> {
+		return ((await this.afAuth.currentUser).delete,
+		this.usersCollection.doc(id).delete());
 	}
 
-	//Visitations
+	//Visitations Collection CRUD
+
 	//create
-	createVisitation(userProfessional: User, userClient: User, visitation: any): Promise<any> {
-		return (
-			this.usersCollection.doc(userProfessional.id).collection('visitations').add(visitation),
-			this.usersCollection.doc(userClient.id).collection('visitations').add(visitation)
-		);
+	createVisitation(visitation: Visitation): Promise<DocumentReference> {
+		return this.visitationsCollection.add(visitation);
 	}
-  //read
-	getVisitationsByUserId(user: User): Observable<[]> {
-		return this.usersCollection
-			.doc<User>(user.id)
+
+	//read
+	getVisitationsByClient(user: User): Observable<Visitation> {
+		return this.visitationsCollection
+			.doc<Visitation>()
 			.valueChanges()
 			.pipe(
-				map((user) => {
-					user.id - user.id;
-					return user.visitations;
+				map((visitation) => {
+					visitation.client.id - user.id;
+					return visitation;
 				})
 			);
-  }
-  //update
-  updateVisitationsByUserId(user: User): Observable<[]> {
-		return this.usersCollection
-			.doc<User>(user.id)
+	}
+
+	getVisitationsByProfessional(user: User): Observable<Visitation> {
+		return this.visitationsCollection
+			.doc<Visitation>()
 			.valueChanges()
 			.pipe(
-				map((user) => {
-					user.id - user.id;
-					return user.visitations;
+				map((visitation) => {
+					visitation.professional.id - user.id;
+					return visitation;
 				})
 			);
-  }
-  //delete
+	}
+
+	//update
+	updateVisation(visitation: Visitation): Promise<void> {
+		return this.visitationsCollection.doc(visitation.id).update(visitation);
+	}
+
+	//delete
+	deleteVisitation(id: any): Promise<void> {
+		return this.visitationsCollection.doc(id).delete();
+	}
 }
