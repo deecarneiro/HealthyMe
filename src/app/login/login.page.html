@@ -2,14 +2,14 @@
   <div class="logo">
 
   </div>
-  <form   (ngSubmit)="submit()">
+  <form [formGroup]="loginForm" (ngSubmit)="submit($event)">
     <ion-item>
-      <ion-input type="text" name="email" placeholder="Email"></ion-input>
+      <ion-input formControlName="email" type="text" name="email" placeholder="Email"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="password" name="password" placeholder="Senha"></ion-input>
+      <ion-input formControlName="password" type="password" name="password" placeholder="Senha"></ion-input>
     </ion-item>
-    <ion-button color="danger">Entrar</ion-button>
+    <ion-button  type="submit" color="danger">Entrar</ion-button>
     <p>
       <a [routerLink]="['/forget-password']">Esqueci a minha senha >></a>
       <br />

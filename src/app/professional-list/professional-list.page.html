@@ -1,9 +1,11 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>professionalList</ion-title>
+  <ion-toolbar color="danger">
+    <ion-title>Meus Clientes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-item *ngFor="let user of (users | async)">
+    <p>{{user.name}}</p>
+  </ion-item>
 </ion-content>

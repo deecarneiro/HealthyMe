@@ -5,6 +5,8 @@ import { User } from '../models/User';
 import { map, take } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Visitation } from '../models/Visitation';
+import CryptoJS from 'crypto-js';
+import * as Global from '../../config';
 
 @Injectable({
 	providedIn: 'root',
@@ -43,11 +45,16 @@ export class FirebaseService {
 
 	//login
 	async login(email: string, password: string): Promise<any> {
-		let user = null;
-		return await this.afAuth.signInWithEmailAndPassword(email, password).then((res: any) => {
-			user = this.getUserByPasswordAndPassword(email, password);
-			return user;
-		});
+		let user: any;
+		// return await this.afAuth
+		// 	.signInWithEmailAndPassword(email, password)
+		// 	.then((res: any) => {
+			return	user = this.getUserByPasswordAndPassword(email, password);
+			// 	return { code: res, user: user };
+			// })
+			// .catch((error) => {
+			// 	return { code: error, user: user };
+			// });
 	}
 
 	//logout
@@ -76,16 +83,8 @@ export class FirebaseService {
 	}
 
 	//read
-	getUsers(professional: any): Observable<User> {
-		return this.usersCollection
-			.doc<User>(professional)
-			.valueChanges()
-			.pipe(
-				map((user) => {
-					user.professional = professional;
-					return user;
-				})
-			);
+	getUsers(professional: any): Observable<User[]> {
+		return this.users;
 	}
 
 	getUser(id: any, professional: any): Observable<User> {
@@ -102,18 +101,21 @@ export class FirebaseService {
 			);
 	}
 
-	getUserByPasswordAndPassword(email: any, password: any): Observable<User> {
-		return this.usersCollection
-			.doc<User>()
-			.valueChanges()
-			.pipe(
-				take(1),
-				map((user) => {
-					user.email = email;
-					user.password = password;
-					return user;
-				})
-			);
+	getUserByPasswordAndPassword(email: any, password: any) {
+		let user : any
+		this.usersCollection.ref.where('id', '==', '6b3084d375d935e01953fb0b495c4bad')
+		.get()
+		.then(snapshot => {
+			if (snapshot.empty) {
+				console.log('No matching documents.');
+				return;
+			  }  
+	  
+			  snapshot.forEach(doc => {
+				user = doc
+				console.log(doc);
+			  });
+		});
 	}
 
 	//update
@@ -140,7 +142,7 @@ export class FirebaseService {
 	//read
 	getVisitationsByClient(user: User): Observable<Visitation> {
 		return this.visitationsCollection
-			.doc<Visitation>()
+			.doc<Visitation>(CryptoJS.MD5(user.code, Global.SALT_KEY).toString())
 			.valueChanges()
 			.pipe(
 				map((visitation) => {
@@ -152,7 +154,7 @@ export class FirebaseService {
 
 	getVisitationsByProfessional(user: User): Observable<Visitation> {
 		return this.visitationsCollection
-			.doc<Visitation>()
+			.doc<Visitation>(CryptoJS.MD5(user.code, Global.SALT_KEY).toString())
 			.valueChanges()
 			.pipe(
 				map((visitation) => {
