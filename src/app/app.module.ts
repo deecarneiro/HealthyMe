@@ -33,7 +33,6 @@ import { environment } from '../environments/environment';
 		IonicStorageModule.forRoot(),
 		HttpClientModule,
 		AngularFireModule.initializeApp(environment.firebaseConfig),
-		AngularFireAuth,
 		AngularFireAuthModule,
 		AngularFirestoreModule,
 		

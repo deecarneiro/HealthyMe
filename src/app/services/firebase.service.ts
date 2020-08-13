@@ -55,15 +55,14 @@ export class FirebaseService {
 		return await this.afAuth.signOut();
 	}
 	//update Password
-	async updatePassword(password : any, user : User): Promise<any> {
-		return await ((await this.afAuth.currentUser).updatePassword(password),this.updateUser(user) );
+	async updatePassword(password: any, user: User): Promise<any> {
+		return await ((await this.afAuth.currentUser).updatePassword(password), this.updateUser(user));
 	}
 	//update Email
-	async updateEmail(email : any, user : User): Promise<any> {
-		return await ((await this.afAuth.currentUser).updateEmail(email),this.updateUser(user) );
+	async updateEmail(email: any, user: User): Promise<any> {
+		return await ((await this.afAuth.currentUser).updateEmail(email), this.updateUser(user));
 	}
 
-	
 	//Users Collection CRUD
 	//create
 	createUser(user: User): Promise<DocumentReference> {
@@ -83,7 +82,7 @@ export class FirebaseService {
 			.valueChanges()
 			.pipe(
 				map((user) => {
-					user.professional - professional;
+					user.professional = professional;
 					return user;
 				})
 			);
@@ -96,8 +95,8 @@ export class FirebaseService {
 			.pipe(
 				take(1),
 				map((user) => {
-					user.id - id;
-					user.professional - professional;
+					user.id = id;
+					user.professional = professional;
 					return user;
 				})
 			);
@@ -110,8 +109,8 @@ export class FirebaseService {
 			.pipe(
 				take(1),
 				map((user) => {
-					user.email - email;
-					user.password - password;
+					user.email = email;
+					user.password = password;
 					return user;
 				})
 			);
@@ -128,8 +127,7 @@ export class FirebaseService {
 
 	//delete
 	async deleteUser(id: any): Promise<void> {
-		return ((await this.afAuth.currentUser).delete,
-		this.usersCollection.doc(id).delete());
+		return (await this.afAuth.currentUser).delete, this.usersCollection.doc(id).delete();
 	}
 
 	//Visitations Collection CRUD
@@ -146,7 +144,7 @@ export class FirebaseService {
 			.valueChanges()
 			.pipe(
 				map((visitation) => {
-					visitation.client.id - user.id;
+					visitation.client.id = user.id;
 					return visitation;
 				})
 			);
@@ -158,7 +156,7 @@ export class FirebaseService {
 			.valueChanges()
 			.pipe(
 				map((visitation) => {
-					visitation.professional.id - user.id;
+					visitation.professional.id = user.id;
 					return visitation;
 				})
 			);
