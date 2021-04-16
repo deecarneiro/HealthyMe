@@ -1,0 +1,1 @@
+export const SALT_KEY = "bgJwb15CpSwnmjMHfAAUhtnl2bVZjZJ8";

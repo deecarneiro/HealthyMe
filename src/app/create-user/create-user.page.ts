@@ -4,11 +4,12 @@ import { Platform, LoadingController, ActionSheetController, ToastController } f
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Camera, PictureSourceType, CameraOptions } from '@ionic-native/camera/ngx';
 import { File, FileEntry } from '@ionic-native/file/ngx';
-import * as utf8 from 'crypto-js/enc-utf8';
-import * as AES from 'crypto-js/aes';
+import * as CryptoJS from 'crypto-js';
 import { finalize } from 'rxjs/operators';
-import * as global from '../../config..js';
 import { HttpClient } from '@angular/common/http';
+import * as Global from '../../config';
+import { FirebaseService } from '../services/firebase.service';
+import { User } from '../models/User';
 
 @Component({
 	selector: 'app-create-user',
@@ -36,12 +37,12 @@ export class CreateUserPage implements OnInit {
 		password: ['', [Validators.required, Validators.pattern('(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
 		code: ['', [Validators.required, Validators.pattern('^[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}$')]],
 		birthday: [new Date(), [Validators.required]],
-		profileImage: [new FileReader(), [Validators.required]],
 		professional: ['', [Validators.required]],
 		zipcode: ['', [Validators.required, Validators.pattern('^[0-9]{5}-[0-9]{3}$')]],
 		address: ['', [Validators.required]],
-		type: [''],
+		type: [0],
 	});
+
 	get nameCtrl() {
 		return this.registrationForm.get('name');
 	}
@@ -51,29 +52,24 @@ export class CreateUserPage implements OnInit {
 	get codeCtrl() {
 		return this.registrationForm.get('code');
 	}
-
 	get birthdayCtrl() {
 		return this.registrationForm.get('birthday');
 	}
 	get profileImageCtrl() {
 		return this.registrationForm.get('profileImage');
 	}
-
 	get professionalCtrl() {
 		return this.registrationForm.get('professional');
 	}
-
 	get zipcodeCtrl() {
 		return this.registrationForm.get('zipcode');
 	}
 	get typeCtrl() {
 		return this.registrationForm.get('type');
 	}
-
 	get addressCtrl() {
 		return this.registrationForm.get('address');
 	}
-
 	get passwordCtrl() {
 		return this.registrationForm.get('password');
 	}
@@ -114,16 +110,41 @@ export class CreateUserPage implements OnInit {
 		private camera: Camera,
 		private file: File,
 		private toastCtrl: ToastController,
-		private http: HttpClient
+		private http: HttpClient,
+		private firebaseService: FirebaseService
 	) {}
 
 	public submit() {
-		// AES.decrypt(userdata, your_encKey).toString(utf8);
-		this.registrationForm.controls['password'].setValue(
-			AES.encrypt(this.registrationForm.get('password').value, global.SALT_KEY).toString()
-		);
-		console.log(global.SALT_KEY);
-		console.log('Form', this.registrationForm.value);
+		let user: User;
+		user = {
+			id: CryptoJS.MD5(this.emailCtrl.value,this.passwordCtrl.value).toString(),			
+			name: this.nameCtrl.value,
+			email: this.emailCtrl.value,
+			password: this.passwordCtrl.value,
+			code: this.codeCtrl.value,
+			birthday: this.birthdayCtrl.value,
+			professional: this.professionalCtrl.value,
+			zipcode: this.zipcodeCtrl.value,
+			address: this.addressCtrl.value,
+			type: this.typeCtrl.value,
+			visitations: [],
+			geoPoints: [],
+		};
+		
+
+
+
+		// console.log(Global.SALT_KEY);
+		// console.log('Form', this.registrationForm.value);
+		// this.file
+		// 	.resolveLocalFilesystemUrl(this.imagePath)
+		// 	.then((entry) => {
+				this.firebaseService.createUser(user);
+				// (<FileEntry>entry).file((file) => this.readFile(file));
+			// })
+			// .catch((error) => {
+			// 	this.presentToast('Não foi feito o upload da foto de perfil');
+			// });
 	}
 
 	public pathForImage(img) {
@@ -178,23 +199,12 @@ export class CreateUserPage implements OnInit {
 		});
 	}
 
-	public sendSignUp() {
-		this.file
-			.resolveLocalFilesystemUrl(this.imagePath)
-			.then((entry) => {
-				(<FileEntry>entry).file((file) => this.readFile);
-			})
-			.catch((error) => {
-				this.presentToast('Não foi feito o upload da foto de perfil');
-			});
-	}
-
 	async uploadImageData(formData: FormData) {
+		console.log('Form Data', formData);
 		const loading = await this.loadingController.create({
 			message: 'Enviando foto do perfil...',
 		});
 		await loading.present();
-		console.log(formData)
 
 		// this.http
 		// 	.post('http://localhost:8888/upload.php', formData)
@@ -211,6 +221,7 @@ export class CreateUserPage implements OnInit {
 		// 		}
 		// 	});
 	}
+
 	public readFile(file: any) {
 		const reader = new FileReader();
 		reader.onloadend = () => {
