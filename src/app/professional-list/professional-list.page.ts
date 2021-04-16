@@ -14,7 +14,7 @@ export class ProfessionalListPage implements OnInit {
   constructor(private firebaseService : FirebaseService) { }
 
   ngOnInit() {
-    this.users = this.firebaseService.getUsers(1);
+    // this.users = this.firebaseService.getUsers(1);
 
   }
 
