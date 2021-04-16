@@ -8,6 +8,7 @@ import { Visitation } from '../models/Visitation';
 import CryptoJS from 'crypto-js';
 import * as Global from '../../config';
 
+
 @Injectable({
 	providedIn: 'root',
 })
@@ -44,19 +45,17 @@ export class FirebaseService {
 	//Authentication
 
 	//login
-	async login(email: string, password: string): Promise<any> {
-		let user: any;
-		// return await this.afAuth
-		// 	.signInWithEmailAndPassword(email, password)
-		// 	.then((res: any) => {
-			return	user = this.getUserByPasswordAndPassword(email, password);
-			// 	return { code: res, user: user };
-			// })
-			// .catch((error) => {
-			// 	return { code: error, user: user };
-			// });
+	async login(email: string, password: string) : Promise<any>{
+		let user : any
+		return await this.afAuth.signInWithEmailAndPassword(email, password).then((res: any) => {
+			user = this.getUserByPasswordAndPassword(email, password)
+			console.log(user)
+			return {code: res, user: user}
+		}).catch(error =>{
+			return {code: error, user: user};
+		});
+		
 	}
-
 	//logout
 	async logout(): Promise<any> {
 		return await this.afAuth.signOut();
@@ -83,8 +82,16 @@ export class FirebaseService {
 	}
 
 	//read
-	getUsers(professional: any): Observable<User[]> {
-		return this.users;
+	getUsers(professional: any): Observable<User> {
+		return this.usersCollection
+			.doc<User>(professional)
+			.valueChanges()
+			.pipe(
+				map((user) => {
+					user.professional = professional;
+					return user;
+				})
+			);
 	}
 
 	getUser(id: any, professional: any): Observable<User> {
@@ -101,21 +108,17 @@ export class FirebaseService {
 			);
 	}
 
-	getUserByPasswordAndPassword(email: any, password: any) {
-		let user : any
-		this.usersCollection.ref.where('id', '==', '6b3084d375d935e01953fb0b495c4bad')
-		.get()
-		.then(snapshot => {
-			if (snapshot.empty) {
-				console.log('No matching documents.');
-				return;
-			  }  
-	  
-			  snapshot.forEach(doc => {
-				user = doc
-				console.log(doc);
-			  });
-		});
+	getUserByPasswordAndPassword(email: any, password: any): Observable<User> {
+		return this.usersCollection
+			.doc<User>("6b3084d375d935e01953fb0b495c4bad")
+			.valueChanges()
+			.pipe(
+				take(1),
+				map((user) => {
+					user.id = "6b3084d375d935e01953fb0b495c4bad"
+					return user;
+				})
+			);
 	}
 
 	//update
