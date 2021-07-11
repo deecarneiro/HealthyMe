@@ -4,15 +4,14 @@
 
 export const environment = {
 	production: false,
-	firebaseConfig :{
-		apiKey: 'AIzaSyCuukYJ2IRCWIgBpStuw9BjjeZw8m1ANLY',
-		authDomain: 'healthyme-28d5b.firebaseapp.com',
-		databaseURL: 'https://healthyme-28d5b.firebaseio.com',
-		projectId: 'healthyme-28d5b',
-		storageBucket: 'healthyme-28d5b.appspot.com',
-		messagingSenderId: '221863814713',
-		appId: '1:221863814713:web:3ead0117da605203218fe8',
-		measurementId: 'G-8GSZ9NSLMC',
+	firebaseConfig: {
+		apiKey: 'AIzaSyCTn02XlmAmtwcYnvhIMIAOlN_9u1uzecs',
+		authDomain: 'heathymeapp.firebaseapp.com',
+		projectId: 'heathymeapp',
+		storageBucket: 'heathymeapp.appspot.com',
+		messagingSenderId: '280466467363',
+		appId: '1:280466467363:web:d28afe193d9acda9041f96',
+		measurementId: 'G-KNWHB1FWY5',
 	},
 };
 

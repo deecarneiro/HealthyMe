@@ -71,13 +71,14 @@ export class FirebaseService {
 
 	//Users Collection CRUD
 	//create
-	createUser(user: User): Promise<DocumentReference> {
-		this.afAuth
+	async createUser(user: User): Promise<DocumentReference> {
+		await this.afAuth
 			.createUserWithEmailAndPassword(user.email, user.password)
 			.then((res: any) => {
+				console.log("RES")
 				return this.usersCollection.add(user);
 			})
-			.catch((error: any) => console.error(error));
+			.catch((error: any) => console.log("Error, create user", error.message));
 		return null;
 	}
 

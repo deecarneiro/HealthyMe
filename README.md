@@ -1,2 +1,2 @@
 # HealthyMe
-A simple CRUD for health professionals and their patients in Ionic Framework.
+HealthyMe is an app to connect health professionals with their patients. It helps those professionals to a

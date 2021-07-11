@@ -44,7 +44,6 @@ export class LoginPage implements OnInit {
     ev.preventDefault()
 		let email = this.emailCtrl.value;
 		let password = this.passwordCtrl.value
-		console.log(password);
 		this.firebaseService.login(email, password).then((rs) => {
 			if (rs.code == 'auth/invalid-email') {
 				this.presentToast('Email Inválido');
