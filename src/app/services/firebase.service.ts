@@ -7,7 +7,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Visitation } from '../models/Visitation';
 import CryptoJS from 'crypto-js';
 import * as Global from '../../config';
-
+import { notEqual } from 'assert';
 
 @Injectable({
 	providedIn: 'root',
@@ -45,16 +45,22 @@ export class FirebaseService {
 	//Authentication
 
 	//login
-	async login(email: string, password: string) : Promise<any>{
-		let user : any
-		return await this.afAuth.signInWithEmailAndPassword(email, password).then((res: any) => {
-			user = this.getUserByPasswordAndPassword(email, password)
-			console.log(user)
-			return {code: res, user: user}
-		}).catch(error =>{
-			return {code: error, user: user};
-		});
-		
+	login(email: string, password: string): Promise<any> {
+		let user: User[];
+		return this.afAuth
+			.signInWithEmailAndPassword(email, password)
+			.then(async (res: any) => {
+				this.getUserByPasswordAndEmail(email).subscribe((userData: User[]) => {
+					console.log('USERDATA', userData);
+					user = userData;
+				});
+				return { code: res, user: user };
+			})
+			.catch((error) => {
+				console.log('Error', error);
+
+				return { error: error };
+			});
 	}
 	//logout
 	async logout(): Promise<any> {
@@ -75,10 +81,10 @@ export class FirebaseService {
 		await this.afAuth
 			.createUserWithEmailAndPassword(user.email, user.password)
 			.then((res: any) => {
-				console.log("RES")
+				console.log('RES');
 				return this.usersCollection.add(user);
 			})
-			.catch((error: any) => console.log("Error, create user", error.message));
+			.catch((error: any) => console.log('Error, create user', error.message));
 		return null;
 	}
 
@@ -109,14 +115,16 @@ export class FirebaseService {
 			);
 	}
 
-	getUserByPasswordAndPassword(email: any, password: any): Observable<User> {
-		return this.usersCollection
-			.doc<User>("6b3084d375d935e01953fb0b495c4bad")
-			.valueChanges()
+	getUserByPasswordAndEmail(email: string): Observable<User[]> {
+		console.log('EMAIL:', email);
+		const id = this.afs.createId();
+		console.log('')
+		return this.afs.collection<User>('users', ref => ref.where('email', '==', email)).valueChanges()
 			.pipe(
 				take(1),
 				map((user) => {
-					user.id = "6b3084d375d935e01953fb0b495c4bad"
+					user[0].email = email;
+					console.log('USER:', user);
 					return user;
 				})
 			);
