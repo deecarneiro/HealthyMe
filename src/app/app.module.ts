@@ -15,10 +15,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
-
 import { environment } from '../environments/environment';
+import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -33,9 +31,7 @@ import { environment } from '../environments/environment';
 		IonicStorageModule.forRoot(),
 		HttpClientModule,
 		AngularFireModule.initializeApp(environment.firebaseConfig),
-		AngularFireAuthModule,
 		AngularFirestoreModule,
-		
 	],
 	providers: [
 		StatusBar,

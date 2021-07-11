@@ -4,6 +4,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { Platform, LoadingController, ActionSheetController, ToastController, NavController } from '@ionic/angular';
 import * as CryptoJS from 'crypto-js';
 import * as Global from '../../config';
+import { User } from 'firebase';
 
 @Component({
 	selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginPage implements OnInit {
 	get passwordCtrl() {
 		return this.loginForm.get('password');
 	}
+	user: User;
 
 	loginForm = this.formBuilder.group({
 		email: [' ', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9]+.[a-zA-Z]{2,4}$')]],
@@ -31,33 +33,32 @@ export class LoginPage implements OnInit {
 		private toastCtrl: ToastController
 	) {}
 
-	async presentToast(text) {
-		const toast = await this.toastCtrl.create({
+	async presentToast(text: string) {
+		let toast = this.toastCtrl.create({
 			message: text,
 			position: 'bottom',
-			duration: 3000,
+			duration: 1000,
 		});
-		toast.present();
+
+		await (await toast).present();
 	}
 
-	submit(ev) {
-    ev.preventDefault()
+	async submit(ev) {
+		ev.preventDefault();
 		let email = this.emailCtrl.value;
-		let password = this.passwordCtrl.value
-		console.log(password);
-		this.firebaseService.login(email, password).then((rs) => {
-			if (rs.code == 'auth/invalid-email') {
-				this.presentToast('Email Inválido');
-				console.log('EMAIL INVÁLIDO');
-			} else if (rs.code == 'auth/user-not-found') {
-				this.presentToast('Usuário Não Encontrado. Email ou/e Senha Incorretos');
-				console.log('USUÁRIO NÃO ENCONTRADO', rs);
-			} else  {
-        
+		let password = this.passwordCtrl.value;
+
+		await this.firebaseService
+			.login(email, password)
+			.then((rs) => {
+				if (rs.error) {
+					this.presentToast(rs.error);
+				} else {
+					console.log('RS', rs);
+					this.presentToast("Login Efetuado");
 					this.navCtrl.navigateRoot('/professional-list');
-		
-			}
-		});
+				}
+			})
 	}
 
 	ngOnInit() {}
